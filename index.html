@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <style>
+    .form__inputs__person {
+      margin-bottom: 10px;
+    }
+  </style>
+  <body height="100vh">
+    <form id="myForm">
+      <div class="form__inputs">
+        <div class="form__inputs__person">
+          <h3>Робітник 1</h3>
+          <div>
+            <input id="name1" required type="text" />
+            <label for="name1">Прізвище</label>
+          </div>
+          <div>
+            <input id="date1" required type="date" />
+            <label for="date1">Дата прийому на роботу</label>
+          </div>
+        </div>
+        <div class="form__inputs__person">
+          <h3>Робітник 2</h3>
+          <div>
+            <input id="name1" required type="text" />
+            <label for="name1">Прізвище</label>
+          </div>
+          <div>
+            <input id="date1" required type="date" />
+            <label for="date1">Дата прийому на роботу</label>
+          </div>
+        </div>
+        <div class="form__inputs__person">
+          <h3>Робітник 3</h3>
+          <div>
+            <input id="name1" required type="text" />
+            <label for="name1">Прізвище</label>
+          </div>
+          <div>
+            <input id="date1" required type="date" />
+            <label for="date1">Дата прийому на роботу</label>
+          </div>
+        </div>
+        <div class="form__inputs__person">
+          <h3>Робітник 4</h3>
+          <div>
+            <input id="name1" required type="text" />
+            <label for="name1">Прізвище</label>
+          </div>
+          <div>
+            <input id="date1" required type="date" />
+            <label for="date1">Дата прийому на роботу</label>
+          </div>
+        </div>
+        <div class="form__inputs__person">
+          <h3>Робітник 5</h3>
+          <div>
+            <input id="name1" required type="text" />
+            <label for="name1">Прізвище</label>
+          </div>
+          <div>
+            <input id="date1" required type="date" />
+            <label for="date1">Дата прийому на роботу</label>
+          </div>
+        </div>
+      </div>
+      <button onsubmit="" type="submit">Submit</button>
+    </form>
+    <script type="text/javascript">
+      const myForm = document.getElementById("myForm");
+      myForm.addEventListener("submit", handleForm);
+      function handleForm(event) {
+        event.preventDefault();
+        const dates = [];
+        for (const element of myForm.elements) {
+          if (element.type === "date") {
+            dates.push(new Date(element.value));
+          }
+        }
+        const amountOfWorkers = dates.length;
+        const currentDate = new Date();
+        if (!dates.every((el) => el <= currentDate)) {
+          alert(
+            "Please do not include planned hires. Input only working employees"
+          );
+          return;
+        }
+        const daysOfWork = [];
+        dates.forEach((date) =>
+          daysOfWork.push(getAmountOfPassedDaysFromDate(date))
+        );
+        const totalDays = daysOfWork.reduce(
+          (accumulator, currentCount) => accumulator + currentCount
+        );
+        const averageDateOfWork = totalDays / amountOfWorkers;
+        const averageIntegerYearsOfWork = Math.round(averageDateOfWork / 365);
+        alert(averageIntegerYearsOfWork);
+      }
+
+      function getAmountOfPassedDaysFromDate(date) {
+        const difference = new Date().getTime() - date.getTime();
+        const millisecondsInSecond = 1000;
+        const secondsInHour = 3600;
+        const hoursInDay = 24;
+        let totalDays = Math.ceil(
+          difference / (millisecondsInSecond * secondsInHour * hoursInDay)
+        );
+        return totalDays;
+      }
+    </script>
+  </body>
+</html>
